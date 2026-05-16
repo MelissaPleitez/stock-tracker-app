@@ -1,0 +1,39 @@
+import express from 'express';
+import cors from 'cors';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { env } from './config/env';
+import authRoutes from './routes/auth';
+import { initFinnhubWebSocket } from './services/finnhub';
+
+const app = express();
+const httpServer = createServer(app);
+
+export const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Calling Routes
+app.use('/auth', authRoutes);
+
+// Socket.io connection
+io.on('connection', (socket) => {
+  console.log(`Client connected: ${socket.id}`);
+
+  socket.on('disconnect', () => {
+    console.log(`Client disconnected: ${socket.id}`);
+  });
+});
+
+// Start server
+httpServer.listen(env.PORT, () => {
+  console.log(` Server running on port ${env.PORT}`);
+  initFinnhubWebSocket();
+});
