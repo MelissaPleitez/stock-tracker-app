@@ -7,6 +7,10 @@ export interface AuthRequest extends Request {
   };
 }
 
+export type Params = {
+  symbol: string;
+};
+
 export interface StockQuote {
   symbol: string;
   price: number;

@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { env } from './config/env';
 import authRoutes from './routes/auth';
+import stockRoutes from './routes/stocks';
 import { initFinnhubWebSocket } from './services/finnhub';
 
 const app = express();
@@ -22,6 +23,8 @@ app.use(express.json());
 
 // Calling Routes
 app.use('/auth', authRoutes);
+
+app.use('/stocks', stockRoutes);
 
 // Socket.io connection
 io.on('connection', (socket) => {
