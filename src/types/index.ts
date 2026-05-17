@@ -9,6 +9,7 @@ export interface AuthRequest extends Request {
 
 export type Params = {
   symbol: string;
+  id: string;
 };
 
 export interface StockQuote {

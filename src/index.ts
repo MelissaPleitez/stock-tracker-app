@@ -5,7 +5,9 @@ import { Server } from 'socket.io';
 import { env } from './config/env';
 import authRoutes from './routes/auth';
 import stockRoutes from './routes/stocks';
+import alertRoutes from './routes/alerts';
 import { initFinnhubWebSocket } from './services/finnhub';
+import { initAlertChecker } from './services/alertChecker';
 
 const app = express();
 const httpServer = createServer(app);
@@ -24,7 +26,11 @@ app.use(express.json());
 // Calling Routes
 app.use('/auth', authRoutes);
 
+// Stock routes
 app.use('/stocks', stockRoutes);
+
+// Alert routes
+app.use('/alerts', alertRoutes);
 
 // Socket.io connection
 io.on('connection', (socket) => {
@@ -36,7 +42,8 @@ io.on('connection', (socket) => {
 });
 
 // Start server
-httpServer.listen(env.PORT, () => {
+httpServer.listen(env.PORT, "0.0.0.0", () => {
   console.log(` Server running on port ${env.PORT}`);
   initFinnhubWebSocket();
+  initAlertChecker();
 });
