@@ -32,3 +32,12 @@ export interface FinnhubQuoteResponse {
   o: number;  // Open price of the day
   pc: number;  // previous close price
 }
+
+export interface InAppNotification {
+  id: number;
+  userId: number;
+  title: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+}

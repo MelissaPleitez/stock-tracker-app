@@ -6,6 +6,7 @@ import { env } from './config/env';
 import authRoutes from './routes/auth';
 import stockRoutes from './routes/stocks';
 import alertRoutes from './routes/alerts';
+import notificationRoutes from './routes/notifications';
 import { initFinnhubWebSocket } from './services/finnhub';
 import { initAlertChecker } from './services/alertChecker';
 
@@ -31,6 +32,9 @@ app.use('/stocks', stockRoutes);
 
 // Alert routes
 app.use('/alerts', alertRoutes);
+
+// Notification routes
+app.use('/notifications', notificationRoutes);
 
 // Socket.io connection
 io.on('connection', (socket) => {
