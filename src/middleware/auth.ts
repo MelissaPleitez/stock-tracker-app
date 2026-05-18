@@ -27,5 +27,6 @@ export const authMiddleware = (
     next();
   } catch {
     res.status(401).json({ message: 'Invalid or expired token' });
+    return;
   }
 };
