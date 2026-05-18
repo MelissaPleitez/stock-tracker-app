@@ -1,6 +1,7 @@
 import { prisma } from '../config/prisma';
 import { currentPrices } from './finnhub';
 import { sendPriceAlertNotification } from './firebase';
+import { io } from '../index';
 
 let timerId: NodeJS.Timeout | null = null;
 
@@ -34,6 +35,8 @@ export const initAlertChecker = (): void => {
                 message: `${alert.symbol} reached $${currentPrice.toFixed(2)} — your target was $${alert.targetPrice.toFixed(2)}`,
               },
             });
+
+            io.emit(`notification_${alert.userId}`, {});
 
             if (alert.user.fcmToken) {
               sendPriceAlertNotification(
