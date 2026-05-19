@@ -78,8 +78,6 @@ HTTP Request
   PostgreSQL
 ```
 
-> **Note:** For a larger scale project, this would implement the full Repository pattern with a dedicated data access layer. For this scope, routes → services → database provides clean separation without over-engineering.
-
 ## Prerequisites
 
 - Node.js 20.19+
@@ -93,7 +91,7 @@ HTTP Request
 
 ```bash
 git clone https://github.com/MelissaPleitez/stock-tracker-app.git
-cd stock-tracker-backend
+cd stock-tracker-app
 ```
 
 ### 2. Install dependencies
